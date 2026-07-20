@@ -2,6 +2,7 @@ import { useState } from "react";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
 import UploadDropzone from "../../components/upload/UploadDropzone";
 import SelectedFileCard from "../../components/upload/SelectedFileCard";
+import AIFeaturesCard from "../../components/upload/AIFeaturesCard";
 
 const UploadReport = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -34,6 +35,14 @@ const UploadReport = () => {
             file={selectedFile}
             onRemove={handleRemoveFile}
           />
+          <UploadDropzone onFileSelect={handleFileSelect} />
+
+<SelectedFileCard
+  file={selectedFile}
+  onRemove={handleRemoveFile}
+/>
+
+<AIFeaturesCard />
         </div>
       </section>
     </DashboardLayout>

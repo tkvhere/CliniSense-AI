@@ -60,13 +60,30 @@ const ReportHistory = () => {
 
           </div>
 
-          <input
-            type="text"
-            placeholder="Search reports..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-sky-500"
-          />
+          <div className="relative">
+  <input
+    type="text"
+    placeholder="Search reports..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    className="w-72 rounded-2xl border border-slate-200 bg-white py-3 pl-12 pr-4 shadow-sm outline-none transition focus:border-sky-500 focus:ring-4 focus:ring-sky-100"
+  />
+
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="absolute left-4 top-3.5 h-5 w-5 text-slate-400"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M21 21l-4.35-4.35M16 10a6 6 0 11-12 0 6 6 0 0112 0z"
+    />
+  </svg>
+</div>
 
         </div>
 
@@ -101,8 +118,7 @@ const ReportHistory = () => {
 
             <table className="min-w-full">
 
-              <thead className="bg-slate-100">
-
+              <thead className="bg-slate-50 text-slate-600 uppercase text-xs tracking-wider">
                 <tr>
 
                   <th className="px-6 py-4 text-left">
@@ -139,7 +155,7 @@ const ReportHistory = () => {
 
                   <tr
                     key={report._id}
-                    className="border-t hover:bg-slate-50"
+                    className="border-t border-slate-100 transition hover:bg-sky-50/40"
                   >
 
                     <td className="px-6 py-4 font-medium">
@@ -176,14 +192,14 @@ const ReportHistory = () => {
 
                         <button
   onClick={() => navigate(`/dashboard/reports/${report._id}`)}
-  className="rounded-lg bg-sky-100 p-2 text-sky-600 transition hover:bg-sky-200"
+  className="rounded-xl bg-sky-100 p-2.5 text-sky-600 transition hover:scale-105 hover:bg-sky-200"
   title="View"
 >
   <FiEye />
 </button>
 
                         <button
-                          className="rounded-lg bg-slate-100 p-2 text-slate-600 transition hover:bg-slate-200"
+                          className="rounded-xl bg-slate-100 p-2.5 text-slate-600 transition hover:scale-105 hover:bg-slate-200"
                           title="Download"
                         >
                           <FiDownload />

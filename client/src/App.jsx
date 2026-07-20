@@ -8,6 +8,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import UploadReport from "./pages/dashboard/UploadReport";
 import ReportHistory from "./pages/dashboard/ReportHistory";
 import ReportDetails from "./pages/dashboard/ReportDetails";
+import Analytics from "./pages/dashboard/Analytics";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/dashboard/upload" element={<UploadReport />} />
       <Route path="/dashboard/reports" element={<ReportHistory />} />
+      <Route path="/dashboard/analytics" element={<Analytics />} />
       <Route
         path="/dashboard/reports/:reportId"
         element={<ReportDetails />}

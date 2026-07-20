@@ -6,10 +6,10 @@ from werkzeug.utils import secure_filename
 
 from models.report_model import ReportModel
 from utils.ocr_service import OCRService
-from utils.medical_analyzer import MedicalAnalyzer
-
+from ai.analyzer import AIAnalyzer
 
 class ReportService:
+    ai_analyzer = AIAnalyzer()
 
     ALLOWED_EXTENSIONS = {
         "pdf",
@@ -60,7 +60,7 @@ class ReportService:
             print("OCR Error:", e)
             extracted_text = ""
 
-        analysis = MedicalAnalyzer.analyze(extracted_text)
+        analysis = ReportService.ai_analyzer.analyze(extracted_text)
 
         report_data = {
             "user_id": g.current_user["_id"],

@@ -1,45 +1,157 @@
 NORMAL_RANGES = {
     "cbc": {
         "hemoglobin": {
-            "male": (13.5, 17.5),
-            "female": (12.0, 15.5)
+            "name": "Hemoglobin",
+            "aliases": ["hemoglobin", "hb", "hgb"],
+            "unit": "g/dL",
+            "min": 12.0,
+            "max": 17.5,
+        },
+        "wbc": {
+            "name": "White Blood Cells",
+            "aliases": ["wbc", "white blood cells", "total leukocyte count", "tlc"],
+            "unit": "/µL",
+            "min": 4000,
+            "max": 11000,
         },
         "rbc": {
-            "male": (4.7, 6.1),
-            "female": (4.2, 5.4)
+            "name": "Red Blood Cells",
+            "aliases": ["rbc", "red blood cells"],
+            "unit": "million/µL",
+            "min": 4.2,
+            "max": 6.1,
         },
-        "wbc": (4000, 11000),
-        "platelets": (150000, 450000)
+        "platelets": {
+            "name": "Platelets",
+            "aliases": ["platelets", "platelet count"],
+            "unit": "/µL",
+            "min": 150000,
+            "max": 450000,
+        },
     },
 
     "lipid": {
-        "total_cholesterol": (125, 200),
-        "ldl": (0, 100),
-        "hdl": (40, 100),
-        "triglycerides": (0, 150)
+        "total_cholesterol": {
+            "name": "Total Cholesterol",
+            "aliases": ["total cholesterol", "cholesterol"],
+            "unit": "mg/dL",
+            "min": 0,
+            "max": 200,
+        },
+        "hdl": {
+            "name": "HDL",
+            "aliases": ["hdl", "hdl cholesterol"],
+            "unit": "mg/dL",
+            "min": 40,
+            "max": 100,
+        },
+        "ldl": {
+            "name": "LDL",
+            "aliases": ["ldl", "ldl cholesterol"],
+            "unit": "mg/dL",
+            "min": 0,
+            "max": 100,
+        },
+        "triglycerides": {
+            "name": "Triglycerides",
+            "aliases": ["triglycerides", "tg"],
+            "unit": "mg/dL",
+            "min": 0,
+            "max": 150,
+        },
     },
 
     "diabetes": {
-        "fasting_glucose": (70, 99),
-        "postprandial_glucose": (70, 140),
-        "hba1c": (4.0, 5.6)
+        "fasting_glucose": {
+            "name": "Fasting Blood Sugar",
+            "aliases": [
+                "fasting blood sugar",
+                "fasting glucose",
+                "fbs",
+                "glucose fasting",
+            ],
+            "unit": "mg/dL",
+            "min": 70,
+            "max": 99,
+        },
+        "hba1c": {
+            "name": "HbA1c",
+            "aliases": ["hba1c", "glycated hemoglobin", "a1c"],
+            "unit": "%",
+            "min": 4.0,
+            "max": 5.6,
+        },
     },
 
     "liver": {
-        "alt": (7, 56),
-        "ast": (10, 40),
-        "bilirubin": (0.2, 1.2)
+        "alt": {
+            "name": "ALT (SGPT)",
+            "aliases": ["alt", "sgpt"],
+            "unit": "U/L",
+            "min": 7,
+            "max": 56,
+        },
+        "ast": {
+            "name": "AST (SGOT)",
+            "aliases": ["ast", "sgot"],
+            "unit": "U/L",
+            "min": 10,
+            "max": 40,
+        },
+        "bilirubin": {
+            "name": "Total Bilirubin",
+            "aliases": ["bilirubin", "total bilirubin"],
+            "unit": "mg/dL",
+            "min": 0.2,
+            "max": 1.2,
+        },
     },
 
     "kidney": {
-        "creatinine": (0.6, 1.3),
-        "urea": (15, 45),
-        "egfr": (90, 120)
+        "creatinine": {
+            "name": "Creatinine",
+            "aliases": ["creatinine", "serum creatinine"],
+            "unit": "mg/dL",
+            "min": 0.6,
+            "max": 1.3,
+        },
+        "urea": {
+            "name": "Blood Urea",
+            "aliases": ["urea", "blood urea"],
+            "unit": "mg/dL",
+            "min": 15,
+            "max": 40,
+        },
+        "egfr": {
+            "name": "eGFR",
+            "aliases": ["egfr", "estimated gfr"],
+            "unit": "mL/min/1.73m²",
+            "min": 90,
+            "max": 150,
+        },
     },
 
     "thyroid": {
-        "tsh": (0.4, 4.0),
-        "t3": (0.8, 2.0),
-        "t4": (5.0, 12.0)
-    }
+        "tsh": {
+            "name": "TSH",
+            "aliases": ["tsh", "thyroid stimulating hormone"],
+            "unit": "µIU/mL",
+            "min": 0.4,
+            "max": 4.0,
+        },
+        "t3": {
+            "name": "T3",
+            "aliases": ["t3", "triiodothyronine"],
+            "unit": "ng/dL",
+            "min": 80,
+            "max": 200,
+        },
+        "t4": {
+            "name": "T4",
+            "aliases": ["t4", "thyroxine"],
+            "unit": "µg/dL",
+            "min": 5.0,
+            "max": 12.0,
+        },
+    },
 }

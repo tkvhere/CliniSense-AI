@@ -57,6 +57,24 @@ class ReportModel:
         return reports
 
     @staticmethod
+    def find_previous_report(user_id):
+
+        report = ReportModel.collection.find_one(
+            {
+                "user_id": user_id
+            },
+            sort=[("created_at", -1)]
+        )
+
+        if report:
+            report["_id"] = str(report["_id"])
+
+            if "user_id" in report:
+                report["user_id"] = str(report["user_id"])
+
+        return report
+
+    @staticmethod
     def update_report(report_id, update_data):
 
         update_data["updated_at"] = datetime.utcnow()
@@ -72,12 +90,6 @@ class ReportModel:
 
     @staticmethod
     def delete_report(report_id):
-        """
-        Delete a report by its MongoDB ObjectId.
-
-        Returns:
-            Deleted report document if found, otherwise None.
-        """
 
         return ReportModel.collection.find_one_and_delete(
             {

@@ -59,3 +59,10 @@ def get_report(report_id):
 @jwt_required
 def delete_report(report_id):
     return ReportController.delete_report(report_id)
+@report_bp.route(
+    "/<report_id>/download",
+    methods=["GET"]
+)
+@jwt_required
+def download_report(report_id):
+    return ReportController.download_report(report_id)

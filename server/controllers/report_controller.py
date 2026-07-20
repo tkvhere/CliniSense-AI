@@ -9,6 +9,8 @@ from config.response import success_response, error_response
 from services.report_service import ReportService
 from models.report_model import ReportModel
 import traceback
+from flask import request, g, jsonify, send_file
+from services.pdf_service import PDFService
 
 
 class ReportController:
@@ -114,6 +116,36 @@ class ReportController:
 
             return error_response(
                 "Unable to fetch report.",
+                500
+            )
+    @staticmethod
+    def download_report(report_id):
+
+        try:
+
+            report = ReportModel.find_by_id(report_id)
+
+            if not report:
+                return error_response(
+                    "Report not found.",
+                    404
+                )
+
+            pdf_path = PDFService.generate(report)
+
+            return send_file(
+                pdf_path,
+                as_attachment=True,
+                download_name=f"CliniSense_Report_{report_id}.pdf",
+                mimetype="application/pdf"
+            )
+
+        except Exception as e:
+
+            traceback.print_exc()
+
+            return error_response(
+                str(e),
                 500
             )
 
