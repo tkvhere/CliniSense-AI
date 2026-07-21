@@ -54,7 +54,7 @@ const ReportDetails = () => {
   const [loading, setLoading] = useState(true);
   const [downloading, setDownloading] = useState(false);
   const fileUrl = report
-  ? `http://127.0.0.1:5000/uploads/${report.stored_filename}`
+  ? `${import.meta.env.VITE_API_URL.replace("/api", "")}/uploads/${report.stored_filename}`
   : "";
 
 const isPdf = report?.file_type === "pdf";
