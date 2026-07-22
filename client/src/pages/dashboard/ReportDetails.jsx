@@ -78,7 +78,7 @@ const isImage = ["jpg", "jpeg", "png"].includes(
     }
   };
  
-
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 const downloadReport = async () => {
   try {
     setDownloading(true);
@@ -86,13 +86,13 @@ const downloadReport = async () => {
     const token = localStorage.getItem("token");
 
     const response = await fetch(
-      `http://127.0.0.1:5000/api/reports/${report._id}/download`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+  `${import.meta.env.VITE_API_URL}/reports/${report._id}/download`,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
 
     if (!response.ok) {
       throw new Error("Failed to download report");
