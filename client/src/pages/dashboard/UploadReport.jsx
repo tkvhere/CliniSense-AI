@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
-import UploadDropzone from "../../components/upload/UploadDropzone";
+import UploadDropZone from "../../components/upload/UploadDropZone";
 import SelectedFileCard from "../../components/upload/SelectedFileCard";
 import { uploadReport } from "../../services/reportService";
 
@@ -63,7 +63,7 @@ const UploadReport = () => {
         </div>
 
         <div className="space-y-6">
-          <UploadDropzone onFileSelect={handleFileSelect} />
+          <UploadDropZone onFileSelect={handleFileSelect} />
 
           <SelectedFileCard
             file={selectedFile}
