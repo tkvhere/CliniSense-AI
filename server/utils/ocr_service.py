@@ -1,6 +1,7 @@
 import os
 import platform
 
+import fitz
 import pytesseract
 from PIL import Image
 from pdf2image import convert_from_path
@@ -40,7 +41,31 @@ class OCRService:
 
         try:
 
-            # Windows
+            # -------------------------------------
+            # Step 1: Extract text using PyMuPDF
+            # -------------------------------------
+
+            document = fitz.open(pdf_path)
+
+            extracted_text = ""
+
+            for page in document:
+                extracted_text += page.get_text()
+
+            document.close()
+
+            if extracted_text.strip():
+
+                print("✅ Text extracted using PyMuPDF")
+
+                return extracted_text
+
+            print("⚠️ No embedded text found. Falling back to OCR...")
+
+            # -------------------------------------
+            # Step 2: OCR Fallback
+            # -------------------------------------
+
             if platform.system() == "Windows":
 
                 pages = convert_from_path(
@@ -48,7 +73,6 @@ class OCRService:
                     poppler_path=r"C:\poppler\poppler-26.02.0\Library\bin"
                 )
 
-            # Linux (Render)
             else:
 
                 pages = convert_from_path(pdf_path)
@@ -62,5 +86,6 @@ class OCRService:
             return extracted_text
 
         except Exception as e:
+
             print("PDF OCR Error:", repr(e))
             raise
