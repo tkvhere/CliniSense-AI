@@ -1,21 +1,16 @@
-# ============================================
-# CliniSense AI
-# OCR Service
-# ============================================
-
 import os
+import platform
 
 import pytesseract
 from PIL import Image
 from pdf2image import convert_from_path
 
 
-# ---------------------------------------------
-# Tesseract Location (Windows)
-# ---------------------------------------------
-pytesseract.pytesseract.tesseract_cmd = (
-    r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-)
+# Configure Tesseract only on Windows
+if platform.system() == "Windows":
+    pytesseract.pytesseract.tesseract_cmd = (
+        r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    )
 
 
 class OCRService:
@@ -32,6 +27,7 @@ class OCRService:
             return OCRService._pdf_to_text(file_path)
 
         return ""
+
     @staticmethod
     def _image_to_text(image_path):
 
@@ -43,10 +39,19 @@ class OCRService:
     def _pdf_to_text(pdf_path):
 
         try:
-            pages = convert_from_path(
-                pdf_path,
-                poppler_path=r"C:\poppler\poppler-26.02.0\Library\bin"
-            )
+
+            # Windows
+            if platform.system() == "Windows":
+
+                pages = convert_from_path(
+                    pdf_path,
+                    poppler_path=r"C:\poppler\poppler-26.02.0\Library\bin"
+                )
+
+            # Linux (Render)
+            else:
+
+                pages = convert_from_path(pdf_path)
 
             extracted_text = ""
 

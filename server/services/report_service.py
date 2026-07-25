@@ -86,6 +86,9 @@ class ReportService:
 
         try:
             extracted_text = OCRService.extract_text(filepath)
+            print("\n========== OCR TEXT ==========")
+            print(extracted_text[:3000])   # Print first 3000 characters
+            print("========== END OCR ==========\n")
             print("OCR Completed.")
         except Exception as e:
             print("OCR Error:")
@@ -97,7 +100,15 @@ class ReportService:
         # -------------------------------
         print("Running AI Analysis...")
 
+        print("\n========== OCR TEXT ==========")
+        print(extracted_text[:5000])
+        print("========== END OCR ==========\n")
+
         analysis = ReportService.ai_analyzer.analyze(extracted_text)
+
+        print("\n========== AI ANALYSIS ==========")
+        print(analysis)
+        print("========== END AI ANALYSIS ==========\n")
 
         print("AI Analysis Completed.")
 
