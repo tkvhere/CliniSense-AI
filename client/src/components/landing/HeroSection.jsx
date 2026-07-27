@@ -3,7 +3,10 @@ import { motion } from "framer-motion";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-cyan-50 to-blue-100">
+    <section
+  id="home"
+  className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-cyan-50 to-blue-100"
+>
 
       {/* Background Effects */}
       <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-cyan-300/30 blur-3xl"></div>
