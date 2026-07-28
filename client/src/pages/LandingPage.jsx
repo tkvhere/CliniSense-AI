@@ -5,7 +5,7 @@ import WorkflowSection from "../components/landing/workflow/WorkflowSection";
 import StatisticsSection from "../components/landing/statistics/StatisticsSection";
 import TestimonialsSection from "../components/landing/testimonials/TestimonialsSection";
 import CTASection from "../components/landing/cta/CTASection";
-
+import AboutSection from "../components/landing/about/AboutSection";
 
 
 const LandingPage = () => {
@@ -15,6 +15,7 @@ const LandingPage = () => {
       <HeroSection />
       <FeaturesSection />
       <WorkflowSection />
+      <AboutSection />
       <StatisticsSection />
       <TestimonialsSection />
       <CTASection />

@@ -2,7 +2,25 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/logo/Logo";
 
+const navItems = [
+  { name: "Home", id: "home" },
+  { name: "Features", id: "features" },
+  { name: "Workflow", id: "workflow" },
+  { name: "About", id: "about" },
+];
+
 const Navbar = () => {
+  const handleScroll = (id) => {
+    const section = document.getElementById(id);
+
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   return (
     <motion.nav
       initial={{ y: -40, opacity: 0 }}
@@ -14,15 +32,17 @@ const Navbar = () => {
 
         {/* Left */}
         <div className="flex items-center gap-3">
-         <Logo />
+          <Logo />
+
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight text-slate-900">
-            CliniSense AI
-         </h1>
+              CliniSense AI
+            </h1>
 
-        <p className="text-xs font-medium tracking-wide text-slate-500">
+            <p className="text-xs font-medium tracking-wide text-slate-500">
               AI-Powered Clinical Intelligence
-        </p>
+            </p>
+
             <p className="text-xs text-slate-500">
               AI Clinical Intelligence
             </p>
@@ -30,35 +50,37 @@ const Navbar = () => {
         </div>
 
         {/* Center */}
-<div className="hidden items-center gap-10 md:flex">
-  {["Home", "Features", "Workflow", "About"].map((item) => (
-    <a
-      key={item}
-      href="#"
-      className="group relative text-[15px] font-medium text-slate-600 transition duration-300 hover:text-blue-600"
-    >
-      {item}
+        <div className="hidden items-center gap-10 md:flex">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => handleScroll(item.id)}
+              className="group relative cursor-pointer bg-transparent text-[15px] font-medium text-slate-600 transition duration-300 hover:text-blue-600"
+            >
+              {item.name}
 
-      <span className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
-    </a>
-  ))}
-</div>
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+            </button>
+          ))}
+        </div>
+
         {/* Right */}
-<div className="hidden items-center gap-4 md:flex">
-  <Link
-  to="/login"
-  className="rounded-xl border border-slate-300 bg-white/60 px-5 py-2.5 text-sm font-semibold text-slate-700 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-500 hover:text-blue-600 hover:shadow-md"
->
-  Login
-</Link>
+        <div className="hidden items-center gap-4 md:flex">
+          <Link
+            to="/login"
+            className="rounded-xl border border-slate-300 bg-white/60 px-5 py-2.5 text-sm font-semibold text-slate-700 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-500 hover:text-blue-600 hover:shadow-md"
+          >
+            Login
+          </Link>
 
-  <Link
-  to="/register"
-  className="rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/40"
->
-  Get Started
-</Link>
-</div>
+          <Link
+            to="/register"
+            className="rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/40"
+          >
+            Get Started
+          </Link>
+        </div>
+
       </div>
     </motion.nav>
   );
