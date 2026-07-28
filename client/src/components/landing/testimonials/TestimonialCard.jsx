@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FaStar, FaUserMd } from "react-icons/fa";
+import { FaStar, FaUserMd, FaQuoteLeft } from "react-icons/fa";
 
 const TestimonialCard = ({
   name,
@@ -10,38 +10,51 @@ const TestimonialCard = ({
 }) => {
   return (
     <motion.div
-      whileHover={{ y: -8 }}
-      transition={{ duration: 0.3 }}
-      className="group rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:border-cyan-300 hover:shadow-xl"
+      whileHover={{
+        y: -12,
+        scale: 1.03,
+      }}
+      transition={{ duration: 0.35 }}
+      className="group relative overflow-hidden rounded-3xl border border-white/30 bg-white/70 p-8 shadow-xl backdrop-blur-xl transition-all duration-300 hover:border-cyan-300 hover:shadow-2xl hover:shadow-cyan-100"
     >
-      {/* Rating */}
-      <div className="flex gap-1 text-amber-400">
-        {[...Array(rating)].map((_, index) => (
-          <FaStar key={index} />
-        ))}
+      {/* Decorative Gradient */}
+      <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-cyan-200/30 blur-3xl"></div>
+
+      {/* Quote Icon */}
+      <div className="mb-6 flex items-center justify-between">
+        <div className="flex gap-1 text-amber-400">
+          {[...Array(rating)].map((_, index) => (
+            <FaStar key={index} />
+          ))}
+        </div>
+
+        <FaQuoteLeft className="text-4xl text-cyan-100 transition-all duration-300 group-hover:text-cyan-300" />
       </div>
 
       {/* Review */}
-      <p className="mt-6 leading-7 text-slate-600">
+      <p className="relative text-[16px] leading-8 text-slate-600">
         "{review}"
       </p>
 
+      {/* Divider */}
+      <div className="my-8 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
+
       {/* User */}
-      <div className="mt-8 flex items-center gap-4">
-        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-cyan-100 text-xl text-cyan-600 transition-all duration-300 group-hover:bg-cyan-600 group-hover:text-white">
+      <div className="flex items-center gap-4">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-2xl text-white shadow-lg transition-all duration-300 group-hover:rotate-6 group-hover:scale-110">
           <FaUserMd />
         </div>
 
         <div>
-          <h4 className="font-semibold text-slate-900">
+          <h4 className="text-lg font-bold text-slate-900">
             {name}
           </h4>
 
-          <p className="text-sm text-slate-500">
+          <p className="text-sm font-medium text-slate-500">
             {role}
           </p>
 
-          <p className="text-sm text-cyan-600">
+          <p className="mt-1 text-sm font-semibold text-cyan-600">
             {hospital}
           </p>
         </div>

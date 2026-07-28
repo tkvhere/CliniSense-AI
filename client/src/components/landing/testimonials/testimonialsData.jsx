@@ -1,19 +1,19 @@
 export const testimonials = [
   {
     name: "Dr. Sarah Johnson",
-    role: "Cardiologist",
-    hospital: "City Heart Institute",
+    role: "Senior Cardiologist",
+    hospital: "Apollo Hospitals",
     rating: 5,
     review:
-      "CliniSense AI significantly reduces the time required to review patient reports. The AI summaries are clear, accurate, and easy to verify.",
+      "CliniSense AI has significantly reduced the time required to interpret laboratory reports. The AI-generated summaries are accurate, well-structured, and help me focus more on patient care.",
   },
   {
     name: "Dr. Michael Chen",
     role: "General Physician",
-    hospital: "CarePlus Hospital",
+    hospital: "Fortis Healthcare",
     rating: 5,
     review:
-      "The medical entity recognition feature helps identify key clinical information within seconds, making consultations much more efficient.",
+      "The OCR accuracy and clinical entity extraction are impressive. It organizes complex medical information into a clear format, making consultations faster and more efficient.",
   },
   {
     name: "Emily Davis",
@@ -21,6 +21,6 @@ export const testimonials = [
     hospital: "Verified User",
     rating: 5,
     review:
-      "I finally understood my lab report without searching every medical term online. The patient-friendly explanation is incredibly helpful.",
+      "I finally understood my blood test without searching medical terms online. The AI explanations were simple, easy to follow, and helped me prepare better for my doctor's appointment.",
   },
 ];
