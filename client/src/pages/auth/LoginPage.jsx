@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AuthLayout from "../../components/auth/AuthLayout";
 import LoginForm from "../../components/auth/LoginForm";
 import { loginUser } from "../../services/authService";
+import { getUserRole } from "../../utils/auth";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -16,32 +17,35 @@ const LoginPage = () => {
 
       const response = await loginUser(formData);
 
-      console.log("Login Response:", response);
-
       if (!response.success) {
         throw new Error(response.message);
       }
 
-      // Save JWT Token
       localStorage.setItem(
         "token",
         response.data.token
       );
 
-      // Save User
       localStorage.setItem(
         "user",
         JSON.stringify(response.data.user)
       );
 
-      console.log("Saved Token:", localStorage.getItem("token"));
+      const role = getUserRole();
+
+      if (role === "doctor") {
+        navigate("/doctor");
+        return;
+      }
+
+      if (role === "admin") {
+        navigate("/admin");
+        return;
+      }
 
       navigate("/dashboard");
 
     } catch (error) {
-
-      console.error(error);
-
       const message =
         error.response?.data?.message ||
         error.message ||

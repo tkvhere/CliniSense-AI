@@ -112,6 +112,7 @@ class ReportBuilder:
         return {
 
             "summary": summary,
+            "report_type": report_type,
 
             "clinical_interpretation": clinical_interpretation,
 
@@ -127,11 +128,12 @@ class ReportBuilder:
 
             "normal_parameters": normal_parameters,
 
-            "confidence": 0.95,
+            "confidence": 95,
 
             "health_score": health_score,
 
             "risk_level": risk,
+            
 
             "severity": severity,
 

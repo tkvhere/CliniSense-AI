@@ -1,15 +1,7 @@
-# ============================================
-# CliniSense AI
-# Input Validation Utilities
-# ============================================
-
 import re
 
 
 class ValidationError(Exception):
-    """
-    Custom validation exception.
-    """
     pass
 
 
@@ -19,10 +11,6 @@ class Validator:
 
     @staticmethod
     def validate_full_name(full_name):
-        """
-        Validate full name.
-        """
-
         if not full_name:
             raise ValidationError("Full name is required.")
 
@@ -42,10 +30,6 @@ class Validator:
 
     @staticmethod
     def validate_email(email):
-        """
-        Validate email address.
-        """
-
         if not email:
             raise ValidationError("Email is required.")
 
@@ -60,17 +44,6 @@ class Validator:
 
     @staticmethod
     def validate_password(password):
-        """
-        Password Rules
-
-        Minimum 8 characters
-
-        At least:
-        - 1 uppercase
-        - 1 lowercase
-        - 1 number
-        """
-
         if not password:
             raise ValidationError("Password is required.")
 
@@ -98,10 +71,6 @@ class Validator:
 
     @staticmethod
     def validate_role(role):
-        """
-        Validate user role.
-        """
-
         if not role:
             raise ValidationError("Role is required.")
 
@@ -116,10 +85,6 @@ class Validator:
 
     @staticmethod
     def validate_signup_data(data):
-        """
-        Validate signup request body.
-        """
-
         return {
             "full_name": Validator.validate_full_name(
                 data.get("full_name")
@@ -137,13 +102,12 @@ class Validator:
 
     @staticmethod
     def validate_login_data(data):
-        """
-        Validate login request body.
-        """
-
         return {
             "email": Validator.validate_email(
                 data.get("email")
             ),
-            "password": data.get("password")
+            "password": data.get("password"),
+            "role": Validator.validate_role(
+                data.get("role", "patient")
+            )
         }

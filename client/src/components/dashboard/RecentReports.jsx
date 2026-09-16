@@ -1,28 +1,5 @@
+import { useNavigate } from "react-router-dom";
 import { FiEye, FiFileText } from "react-icons/fi";
-
-const reports = [
-  {
-    id: 1,
-    name: "Complete Blood Count.pdf",
-    date: "18 Jul 2026",
-    status: "Completed",
-    risk: "Low",
-  },
-  {
-    id: 2,
-    name: "Chest X-Ray Report.pdf",
-    date: "17 Jul 2026",
-    status: "Completed",
-    risk: "Medium",
-  },
-  {
-    id: 3,
-    name: "MRI Brain Scan.pdf",
-    date: "15 Jul 2026",
-    status: "Processing",
-    risk: "--",
-  },
-];
 
 const riskStyles = {
   Low: "bg-emerald-100 text-emerald-700",
@@ -32,11 +9,36 @@ const riskStyles = {
 };
 
 const statusStyles = {
-  Completed: "bg-sky-100 text-sky-700",
-  Processing: "bg-violet-100 text-violet-700",
+  uploaded: "bg-sky-100 text-sky-700",
+  processing: "bg-violet-100 text-violet-700",
+  completed: "bg-emerald-100 text-emerald-700",
 };
 
-const RecentReports = () => {
+const RecentReports = ({ reports = [], loading }) => {
+  const navigate = useNavigate();
+
+  if (loading) {
+    return (
+      <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <p className="text-slate-500">Loading reports...</p>
+      </section>
+    );
+  }
+
+  if (reports.length === 0) {
+    return (
+      <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2 className="text-2xl font-bold text-slate-800">
+          Recent Reports
+        </h2>
+
+        <p className="mt-4 text-slate-500">
+          No reports uploaded yet.
+        </p>
+      </section>
+    );
+  }
+
   return (
     <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
       <div className="mb-6 flex items-center justify-between">
@@ -64,9 +66,9 @@ const RecentReports = () => {
           </thead>
 
           <tbody>
-            {reports.map((report) => (
+            {reports.slice(0, 5).map((report) => (
               <tr
-                key={report.id}
+                key={report._id}
                 className="border-b border-slate-100 transition hover:bg-slate-50"
               >
                 <td className="py-5">
@@ -76,19 +78,22 @@ const RecentReports = () => {
                     </div>
 
                     <span className="font-medium text-slate-700">
-                      {report.name}
+                      {report.original_filename || "Medical Report"}
                     </span>
                   </div>
                 </td>
 
                 <td className="text-slate-500">
-                  {report.date}
+                  {report.created_at
+                    ? new Date(report.created_at).toLocaleDateString("en-IN")
+                    : "--"}
                 </td>
 
                 <td>
                   <span
                     className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                      statusStyles[report.status]
+                      statusStyles[report.status] ||
+                      "bg-sky-100 text-sky-700"
                     }`}
                   >
                     {report.status}
@@ -98,15 +103,22 @@ const RecentReports = () => {
                 <td>
                   <span
                     className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                      riskStyles[report.risk]
+                      riskStyles[
+                        report.analysis?.analysis?.risk_level || "--"
+                      ] || "bg-slate-100 text-slate-500"
                     }`}
                   >
-                    {report.risk}
+                    {report.analysis?.analysis?.risk_level || "--"}
                   </span>
                 </td>
 
                 <td>
-                  <button className="flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-sky-600 transition hover:bg-sky-50">
+                  <button
+                    onClick={() =>
+                      navigate(`/dashboard/reports/${report._id}`)
+                    }
+                    className="flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-sky-600 transition hover:bg-sky-50"
+                  >
                     <FiEye size={16} />
                     View
                   </button>

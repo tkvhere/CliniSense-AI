@@ -1,8 +1,3 @@
-# ============================================
-# CliniSense AI
-# Report Routes
-# ============================================
-
 from flask import Blueprint
 
 from controllers.report_controller import ReportController
@@ -14,10 +9,6 @@ report_bp = Blueprint(
     url_prefix="/api/reports"
 )
 
-# --------------------------------------------
-# Upload Report
-# --------------------------------------------
-
 @report_bp.route(
     "/upload",
     methods=["POST"]
@@ -26,11 +17,6 @@ report_bp = Blueprint(
 def upload_report():
     return ReportController.upload_report()
 
-
-# --------------------------------------------
-# Get All Reports
-# --------------------------------------------
-
 @report_bp.route(
     "/my-reports",
     methods=["GET"]
@@ -38,11 +24,6 @@ def upload_report():
 @jwt_required
 def get_my_reports():
     return ReportController.get_my_reports()
-
-
-# --------------------------------------------
-# Get Single Report
-# --------------------------------------------
 
 @report_bp.route(
     "/<report_id>",

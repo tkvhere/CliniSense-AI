@@ -17,21 +17,28 @@ ChartJS.register(
   Legend
 );
 
-const DiseaseBarChart = () => {
+const DiseaseBarChart = ({ reportTypeDistribution }) => {
+  const distribution = reportTypeDistribution || {};
+
+  const labels = Object.keys(distribution);
+  const values = Object.values(distribution);
+
   const data = {
-    labels: [
-      "CBC",
-      "Diabetes",
-      "Lipid",
-      "Liver",
-      "Kidney",
-      "Thyroid",
-    ],
+    labels,
     datasets: [
       {
         label: "Reports",
-        data: [40, 26, 18, 15, 14, 13],
-        backgroundColor: "#2563eb",
+        data: values,
+        backgroundColor: [
+          "#2563eb",
+          "#9333ea",
+          "#22c55e",
+          "#f59e0b",
+          "#ef4444",
+          "#14b8a6",
+          "#3b82f6",
+          "#8b5cf6",
+        ],
         borderRadius: 8,
       },
     ],
@@ -40,32 +47,59 @@ const DiseaseBarChart = () => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
-
     plugins: {
       legend: {
         display: false,
       },
+      tooltip: {
+        callbacks: {
+          label: (context) =>
+            `${context.raw} Reports`,
+        },
+      },
     },
-
     scales: {
       y: {
         beginAtZero: true,
         ticks: {
-          stepSize: 10,
+          precision: 0,
+        },
+        grid: {
+          color: "#e2e8f0",
+        },
+      },
+      x: {
+        grid: {
+          display: false,
         },
       },
     },
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 h-[380px]">
-      <h2 className="text-xl font-semibold text-gray-700 mb-6">
-        Disease Distribution
-      </h2>
+    <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-slate-800">
+          Report Type Distribution
+        </h2>
 
-      <div className="h-[280px]">
-        <Bar data={data} options={options} />
+        <p className="mt-2 text-slate-500">
+          Distribution of uploaded medical reports.
+        </p>
       </div>
+
+      {labels.length === 0 ? (
+        <div className="flex h-72 items-center justify-center text-slate-500">
+          No reports available.
+        </div>
+      ) : (
+        <div className="h-[320px]">
+          <Bar
+            data={data}
+            options={options}
+          />
+        </div>
+      )}
     </div>
   );
 };

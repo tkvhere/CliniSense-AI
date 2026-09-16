@@ -8,8 +8,12 @@ from config.settings import Config
 
 from routes.auth_routes import auth_bp
 from routes.report_routes import report_bp
-
-
+from routes.doctor_patient_routes import doctor_patient_bp
+from routes.doctor_report_routes import doctor_report_bp
+from routes.doctor_report_detail_routes import doctor_report_detail_bp
+from routes.doctor_analytics_routes import doctor_analytics_bp
+from routes.doctor_high_risk_routes import doctor_high_risk_bp
+from routes.analytics_routes import analytics_bp
 app = Flask(__name__)
 
 app.config.from_object(Config)
@@ -64,8 +68,12 @@ def uploaded_file(filename):
 # Register Blueprints
 app.register_blueprint(auth_bp)
 app.register_blueprint(report_bp)
-
-
+app.register_blueprint(analytics_bp)
+app.register_blueprint(doctor_high_risk_bp)
+app.register_blueprint(doctor_analytics_bp)
+app.register_blueprint(doctor_patient_bp)
+app.register_blueprint(doctor_report_bp)
+app.register_blueprint(doctor_report_detail_bp)
 if __name__ == "__main__":
     app.run(
         host="0.0.0.0",

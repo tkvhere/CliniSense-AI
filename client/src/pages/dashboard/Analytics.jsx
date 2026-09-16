@@ -4,22 +4,27 @@ import RiskPieChart from "../../components/analytics/RiskPieChart";
 import DiseaseBarChart from "../../components/analytics/DiseaseBarChart";
 import RecentActivity from "../../components/analytics/RecentActivity";
 import AIInsights from "../../components/analytics/AIInsights";
+import ReportsTimeline from "../../components/analytics/ReportsTimeline";
+import AnalyticsSkeleton from "../../components/analytics/AnalyticsSkeleton";
+import useAnalytics from "../../hooks/useAnalytics";
 
 import {
   FiFileText,
   FiHeart,
   FiAlertTriangle,
   FiCpu,
+  FiUsers,
 } from "react-icons/fi";
 
 const Analytics = () => {
-  // Demo Analytics Data
-  const dashboardData = {
-    totalReports: 126,
-    avgHealthScore: "84%",
-    highRisk: 18,
-    processed: 126,
-  };
+  const { analytics, loading, error } = useAnalytics();
+
+  const summary = analytics?.summary || {};
+
+  const totalReports = summary.totalReports || 0;
+  const totalPatients = summary.totalPatients || 0;
+  const averageConfidence = summary.averageConfidence || 0;
+  const highRiskCases = summary.highRiskCases || 0;
 
   return (
     <motion.div
@@ -28,7 +33,6 @@ const Analytics = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Page Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-blue-700">
           Healthcare Analytics
@@ -39,56 +43,84 @@ const Analytics = () => {
         </p>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+      {loading && <AnalyticsSkeleton />}
 
-        <AnalyticsCard
-          title="Total Reports"
-          value={dashboardData.totalReports}
-          icon={<FiFileText />}
-          color="bg-blue-600"
-        />
+      {error && !loading && (
+        <div className="rounded-xl border border-red-100 bg-red-50 p-6">
+          <p className="text-sm text-red-600">
+            {error}
+          </p>
+        </div>
+      )}
 
-        <AnalyticsCard
-          title="Average Health Score"
-          value={dashboardData.avgHealthScore}
-          icon={<FiHeart />}
-          color="bg-green-600"
-        />
+      {!loading && !error && (
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
+            <AnalyticsCard
+              title="Total Reports"
+              value={totalReports}
+              icon={FiFileText}
+              color="bg-blue-600"
+            />
 
-        <AnalyticsCard
-          title="High Risk Cases"
-          value={dashboardData.highRisk}
-          icon={<FiAlertTriangle />}
-          color="bg-red-600"
-        />
+            <AnalyticsCard
+              title="Total Patients"
+              value={totalPatients}
+              icon={FiUsers}
+              color="bg-purple-600"
+            />
 
-        <AnalyticsCard
-          title="AI Reports Processed"
-          value={dashboardData.processed}
-          icon={<FiCpu />}
-          color="bg-indigo-600"
-        />
+            <AnalyticsCard
+              title="Average AI Confidence"
+              value={`${averageConfidence}%`}
+              icon={FiHeart}
+              color="bg-green-600"
+            />
 
-      </div>
+            <AnalyticsCard
+              title="High Risk Cases"
+              value={highRiskCases}
+              icon={FiAlertTriangle}
+              color="bg-red-600"
+            />
 
-      {/* Charts */}
-<div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
+            <AnalyticsCard
+              title="AI Reports Processed"
+              value={totalReports}
+              icon={FiCpu}
+              color="bg-indigo-600"
+            />
+          </div>
 
-  <RiskPieChart />
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
+            <RiskPieChart
+              riskDistribution={analytics?.riskDistribution}
+            />
 
-  <DiseaseBarChart />
+            <DiseaseBarChart
+              reportTypeDistribution={
+                analytics?.reportTypeDistribution
+              }
+            />
+          </div>
 
-</div>
+          <div className="mb-8">
+            <ReportsTimeline
+              timeline={analytics?.timeline}
+            />
+          </div>
 
-      {/* Bottom Section */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            <RecentActivity
+              activities={analytics?.recentActivity}
+            />
 
-        <RecentActivity />
-
-        <AIInsights />
-
-      </div>
+            <AIInsights
+              analytics={analytics}
+            />
+          </div>
+        </>
+      )}
     </motion.div>
   );
 };

@@ -2,7 +2,10 @@ import FeatureGrid from "./FeatureGrid";
 
 const FeaturesSection = () => {
   return (
-    <section className="bg-white py-24">
+    <section
+  id="features"
+  className="bg-white py-24"
+>
       <div className="mx-auto max-w-7xl px-6">
 
         {/* Section Heading */}

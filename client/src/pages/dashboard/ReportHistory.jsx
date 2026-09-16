@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiFileText, FiEye, FiDownload } from "react-icons/fi";
+import ReportFilters from "../../components/reports/ReportFilters";
 
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
 import { getMyReports } from "../../services/reportService";
@@ -9,6 +10,9 @@ const ReportHistory = () => {
   const [reports, setReports] = useState([]);
   const [filteredReports, setFilteredReports] = useState([]);
   const [search, setSearch] = useState("");
+  const [reportType, setReportType] = useState("All");
+  const [riskLevel, setRiskLevel] = useState("All");
+  const [sortBy, setSortBy] = useState("latest");
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -18,14 +22,14 @@ const ReportHistory = () => {
   }, []);
 
   useEffect(() => {
-    const result = reports.filter((report) =>
-      report.original_filename
-        .toLowerCase()
-        .includes(search.toLowerCase())
-    );
+  const result = reports.filter((report) =>
+    report.original_filename
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
 
-    setFilteredReports(result);
-  }, [search, reports]);
+  setFilteredReports(result);
+}, [search, reports]);
 
   const fetchReports = async () => {
     try {
@@ -60,30 +64,16 @@ const ReportHistory = () => {
 
           </div>
 
-          <div className="relative">
-  <input
-    type="text"
-    placeholder="Search reports..."
-    value={search}
-    onChange={(e) => setSearch(e.target.value)}
-    className="w-72 rounded-2xl border border-slate-200 bg-white py-3 pl-12 pr-4 shadow-sm outline-none transition focus:border-sky-500 focus:ring-4 focus:ring-sky-100"
-  />
-
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="absolute left-4 top-3.5 h-5 w-5 text-slate-400"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M21 21l-4.35-4.35M16 10a6 6 0 11-12 0 6 6 0 0112 0z"
-    />
-  </svg>
-</div>
+          <ReportFilters
+  search={search}
+  setSearch={setSearch}
+  reportType={reportType}
+  setReportType={setReportType}
+  riskLevel={riskLevel}
+  setRiskLevel={setRiskLevel}
+  sortBy={sortBy}
+  setSortBy={setSortBy}
+/>
 
         </div>
 

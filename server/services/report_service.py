@@ -105,6 +105,8 @@ class ReportService:
         print("========== END OCR ==========\n")
 
         analysis = ReportService.ai_analyzer.analyze(extracted_text)
+        if analysis.get("success"):
+           analysis = analysis["analysis"]
 
         print("\n========== AI ANALYSIS ==========")
         print(analysis)
@@ -128,11 +130,13 @@ class ReportService:
             "ocr_text": extracted_text,
             "analysis": analysis
         }
-
         print("Saving report to MongoDB...")
+        print("Current User ID:", g.current_user["_id"])
+        print("Report Data Keys:", list(report_data.keys()))
 
         report_id = ReportModel.create_report(report_data)
 
+        print("Inserted Report ID:", report_id)
         print("MongoDB Save Successful.")
         print("========== REPORT UPLOAD COMPLETED ==========\n")
 

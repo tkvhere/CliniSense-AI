@@ -4,6 +4,7 @@ const LoginForm = ({ onSubmit, loading = false }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    role: "patient",
   });
 
   const handleChange = (e) => {
@@ -24,8 +25,50 @@ const LoginForm = ({ onSubmit, loading = false }) => {
     onSubmit(formData);
   };
 
+  const roles = [
+    {
+      value: "patient",
+      label: "Patient",
+    },
+    {
+      value: "doctor",
+      label: "Doctor",
+    },
+    {
+      value: "admin",
+      label: "Admin",
+    },
+  ];
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <div>
+        <label className="block mb-2 text-sm font-medium text-slate-700">
+          Login As
+        </label>
+
+        <div className="grid grid-cols-3 gap-2">
+          {roles.map((role) => (
+            <button
+              key={role.value}
+              type="button"
+              onClick={() =>
+                setFormData((prev) => ({
+                  ...prev,
+                  role: role.value,
+                }))
+              }
+              className={`rounded-xl border px-3 py-3 text-sm font-semibold transition ${
+                formData.role === role.value
+                  ? "border-cyan-600 bg-cyan-600 text-white"
+                  : "border-slate-300 bg-white text-slate-600 hover:border-cyan-400 hover:text-cyan-600"
+              }`}
+            >
+              {role.label}
+            </button>
+          ))}
+        </div>
+      </div>
 
       <div>
         <label className="block mb-2 text-sm font-medium text-slate-700">
@@ -64,7 +107,6 @@ const LoginForm = ({ onSubmit, loading = false }) => {
       >
         {loading ? "Signing In..." : "Sign In"}
       </button>
-
     </form>
   );
 };
